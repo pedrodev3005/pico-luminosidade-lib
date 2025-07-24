@@ -1,6 +1,3 @@
-Okay, vamos criar um arquivo `README.md` detalhado para o seu repositório GitHub. Este README descreverá sua biblioteca, como usá-la, a estrutura do projeto e as considerações de hardware.
-
-Certifique-se de salvar este conteúdo como `README.md` no diretório raiz do seu repositório (`luminosidade_3`).
 
 -----
 
