@@ -7,19 +7,19 @@ Esta é uma biblioteca em C para o sensor de luz ambiente digital Texas Instrume
 
 ## Índice
 
-1.  [Visão Geral](https://www.google.com/search?q=%23vis%C3%A3o-geral)
-2.  [Funcionalidades](https://www.google.com/search?q=%23funcionalidades)
-3.  [Hardware e Conexões](https://www.google.com/search?q=%23hardware-e-conex%C3%B5es)
-4.  [Estrutura do Projeto](https://www.google.com/search?q=%23estrutura-do-projeto)
-5.  [Configuração do Ambiente de Desenvolvimento](https://www.google.com/search?q=%23configura%C3%A7%C3%A3o-do-ambiente-de-desenvolvimento)
-6.  [Como Usar a Biblioteca](https://www.google.com/search?q=%23como-usar-a-biblioteca)
-      * [Inicialização](https://www.google.com/search?q=%23inicializa%C3%A7%C3%A3o)
-      * [Configuração Básica](https://www.google.com/search?q=%23configura%C3%A7%C3%A3o-b%C3%A1sica)
-      * [Leitura de Dados](https://www.google.com/search?q=%23leitura-de-dados)
-      * [Configuração de Limiares (Thresholds)](https://www.google.com/search?q=%23configura%C3%A7%C3%A3o-de-limiares-thresholds)
-      * [Uso de Interrupções](https://www.google.com/search?q=%23uso-de-interrup%C3%A7%C3%B5es)
-      * [Funções de Baixo Nível](https://www.google.com/search?q=%23fun%C3%A7%C3%B5es-de-baixo-n%C3%ADvel)
-7.  [Suite de Testes](https://www.google.com/search?q=%23suite-de-testes)
+1.  [Visão Geral](#visão-geral)
+2.  [Funcionalidades](#funcionalidades)
+3.  [Hardware e Conexões](#hardware-e-conexões)
+4.  [Estrutura do Projeto](#estrutura-do-projeto)
+5.  [Configuração do Ambiente de Desenvolvimento](#configuração-do-ambiente-de-desenvolvimento)
+6.  [Como Usar a Biblioteca](#como-usar-a-biblioteca)
+    * [Inicialização](#inicialização)
+    * [Configuração Básica](#configuração-básica)
+    * [Leitura de Dados](#leitura-de-dados)
+    * [Configuração de Limiares (Thresholds)](#configuração-de-limiares-thresholds)
+    * [Uso de Interrupções](#uso-de-interrupções)
+    * [Funções de Baixo Nível](#funções-de-baixo-nível)
+7.  [Suite de Testes](#suite-de-testes)
 
 -----
 
