@@ -32,13 +32,13 @@ O OPT4001 é um sensor de luz para digital (luxímetro de chip único) com alta 
   * Inicialização da comunicação I²C com o sensor.
   * Modos de operação configuráveis: Power-down, One-shot (disparo único) e Contínuo.
   * Tempos de conversão selecionáveis.
-  * [cite\_start]Seleção automática de faixa de luz (Auto-Range)[cite: 1, 2].
+  * [cite\_start]Seleção automática de faixa de luz (Auto-Range).
   * Leitura de dados de iluminância em Lux.
   * Extração de `EXPONENT`, `MANTISSA`, `ADC_CODES`, `COUNTER` e `CRC` dos dados brutos.
   * Detecção de sobrecarga do sensor (`overload_flag`).
-  * [cite\_start]Configuração e uso de limiares de luz (thresholds) em valores de Lux diretamente[cite: 1, 2].
-  * [cite\_start]Flags de status para limites alto (`FLAG_H`) e baixo (`FLAG_L`), e conversão concluída (`CONVERSION_READY`)[cite: 1, 2].
-  * [cite\_start]Suporte a interrupções via pino `INT` (somente variante SOT-5X3) para operação baseada em eventos e economia de energia[cite: 1, 2].
+  * Configuração e uso de limiares de luz (thresholds) em valores de Lux diretamente.
+  * Flags de status para limites alto (`FLAG_H`) e baixo (`FLAG_L`), e conversão concluída (`CONVERSION_READY`).
+  * Suporte a interrupções via pino `INT` (somente variante SOT-5X3) para operação baseada em eventos e economia de energia.
   * Acesso direto a funções de leitura e escrita de registradores para depuração avançada.
 
 ## Hardware e Conexões
@@ -174,8 +174,7 @@ Estas funções são expostas para depuração e testes avançados.
 
 ## Suite de Testes
 
-O projeto inclui um arquivo `test_opt4001.c` com uma suite de testes que cobre a inicialização, configuração de modos, leitura de dados, limiares e interrupções. Para executá-lo, modifique seu `CMakeLists.txt` conforme a seção [Configuração do Ambiente de Desenvolvimento](https://www.google.com/search?q=%23configura%C3%A7%C3%A3o-do-ambiente-de-desenvolvimento). A suite de testes fornecerá feedback no monitor serial sobre o sucesso ou falha de cada teste.
-
+O projeto inclui um arquivo `test_opt4001.c` com uma suite de testes que cobre a inicialização, configuração de modos, leitura de dados, limiares e interrupções.
 -----
 
 
