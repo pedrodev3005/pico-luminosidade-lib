@@ -34,7 +34,7 @@ typedef struct {
 
 
 // Endereço I2C do sensor OPT4001
-#define OPT4001_ADDRESS 0x45 // pela documentação da pcb, aparenta ser o 0x45, mas pela datasheet do sensor, mostra 0x44, (verificar isso)
+#define OPT4001_ADDRESS 0x45
 
 // Mapeamento de registradores
 #define OPT4001_REG_RESULT_MSB      0x00 // EXPONENT e RESULT_MSB
@@ -76,16 +76,16 @@ typedef enum {
 
 // Valores de configuração para RANGE
 typedef enum {
-    OPT4001_RANGE_459LUX_PICOSTAR    = 0x0, // 459 lux 
-    OPT4001_RANGE_918LUX_PICOSTAR    = 0x1, // 918 lux 
-    OPT4001_RANGE_1K8LUX_PICOSTAR    = 0x2, // 1.8 klux 
-    OPT4001_RANGE_3K7LUX_PICOSTAR    = 0x3, // 3.7 klux 
-    OPT4001_RANGE_7K3LUX_PICOSTAR    = 0x4, // 7.3 klux 
-    OPT4001_RANGE_14K7LUX_PICOSTAR   = 0x5, // 14.7 klux 
-    OPT4001_RANGE_29K4LUX_PICOSTAR   = 0x6, // 29.4 klux 
-    OPT4001_RANGE_58KL7UX_PICOSTAR   = 0x7, // 58.7 klux 
-    OPT4001_RANGE_117K4LUX_PICOSTAR  = 0x8, // 117.4 klux 
-    OPT4001_RANGE_AUTO               = 0xC  // Auto-Range (recomendado)
+    OPT4001_RANGE_459LUX    = 0x0, // 459 lux 
+    OPT4001_RANGE_918LUX    = 0x1, // 918 lux 
+    OPT4001_RANGE_1K8LUX    = 0x2, // 1.8 klux 
+    OPT4001_RANGE_3K7LUX    = 0x3, // 3.7 klux 
+    OPT4001_RANGE_7K3LUX    = 0x4, // 7.3 klux 
+    OPT4001_RANGE_14K7LUX   = 0x5, // 14.7 klux 
+    OPT4001_RANGE_29K4LUX   = 0x6, // 29.4 klux 
+    OPT4001_RANGE_58K7LUX   = 0x7, // 58.7 klux 
+    OPT4001_RANGE_117K4LUX  = 0x8, // 117.4 klux 
+    OPT4001_RANGE_AUTO      = 0xC  // Auto-Range (recomendado)
 } opt4001_range_t;
 
 
@@ -112,14 +112,14 @@ bool opt4001_set_conversion_time(uint8_t conversion_time_reg_value); // De 0 a 1
 bool opt4001_set_operating_mode(uint8_t mode); // 0: Power-down, 1: Forced auto-range One-shot, 2: One-shot, 3: Continuous
 bool opt4001_set_range(uint8_t range_reg_value); // De 0 a 8 para manual, 0xC para auto-range
 bool opt4001_get_data(opt4001_data_t *data); // Lê todos os registradores de resultado e status
-float opt4001_calculate_lux(uint32_t adc_codes); // Função interna para calcular lux a partir de ADC_CODES
-bool opt4001_read_register(uint8_t reg_address, uint16_t *value);
-bool opt4001_write_register(uint8_t reg_address, uint16_t value);
+float opt4001_calculate_lux(uint32_t adc_codes); // Função interna para calcular lux a partir de ADC_CODES (vai virar interna)
+bool opt4001_read_register(uint8_t reg_address, uint16_t *value); // vai virar interna
+bool opt4001_write_register(uint8_t reg_address, uint16_t value); // vai virar interna
 bool opt4001_wait_for_conversion_complete(uint32_t timeout_ms); // Útil para modo one-shot
-bool opt4001_set_thresholds(uint8_t low_exp, uint16_t low_res, uint8_t high_exp, uint16_t high_res);
+bool opt4001_set_thresholds(uint8_t low_exp, uint16_t low_res, uint8_t high_exp, uint16_t high_res); // vai virar interna
 bool opt4001_get_flags(bool *overload, bool *conv_ready, bool *flag_h, bool *flag_l);
 bool opt4001_set_lux_thresholds(float low_lux, float high_lux);
-opt4001_threshold_value_t opt4001_lux_to_threshold_reg_values(float desired_lux);
+opt4001_threshold_value_t opt4001_lux_to_threshold_reg_values(float desired_lux);// vai virar interna
 bool opt4001_config_interrupt_pin(opt4001_int_polarity_t polarity, opt4001_fault_count_t fault_count);
 
 #endif // OPT4001_H

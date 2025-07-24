@@ -39,7 +39,7 @@ int main() {
     printf("Sensor configurado: Modo Contínuo, Auto-Range, Conversão 400ms.\n");
     
 
-// 3. Define os limiares de luz (thresholds) usando a nova função
+// 3. Define os limiares de luz (thresholds)
     float desired_low_lux = 10.0f;  // Exemplo: Limiar baixo de 10 Lux
     float desired_high_lux = 1000.0f; // Exemplo: Limiar alto de 1000 Lux
 
@@ -67,17 +67,12 @@ int main() {
                        sensor_data.adc_codes,
                        sensor_data.counter);
 
-                // Opcional: Imprime o estado das flags
+                //Imprime o estado das flags
                 printf("  Flags: Overload=%d, ConvReady=%d, FlagH=%d, FlagL=%d\n",
                        sensor_data.overload_flag,
                        sensor_data.conversion_ready,
                        sensor_data.flag_h,
                        sensor_data.flag_l);
-                       // Força a limpeza das flags escrevendo 0x0000 no registrador 0x0C
-                //opt4001_write_register(OPT4001_REG_INTERRUPT_FLAGS, 0x0000);
-                // Em main.c, após tentar desabilitar o LATCH:
-                // ...
-                //printf("Sensor configurado para flags transparentes (LATCH = 0).\n");
                 uint16_t debug_config_reg;
                 if (opt4001_read_register(OPT4001_REG_CONFIG, &debug_config_reg)) {
                     printf("DEBUG: REG_CONFIG (0x0A) lido: 0x%04X (LATCH bit 3: %d)\n",
@@ -92,11 +87,10 @@ int main() {
             }
         } else {
             printf("AVISO: Tempo limite excedido na espera pela conversão ou erro de leitura da flag.\n");
-            // Pode tentar um reset ou reconfiguração aqui se isso acontecer com frequência.
         }
 
         sleep_ms(1000); // Pequeno atraso entre as leituras para não sobrecarregar o terminal
     }
 
-    return 0; // O programa nunca deve chegar aqui em um sistema embarcado típico
+    return 0;
 }

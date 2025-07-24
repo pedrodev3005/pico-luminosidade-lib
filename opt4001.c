@@ -167,7 +167,7 @@ bool opt4001_init(uint baudrate) {
     // Configurar o sensor para o modo operacional padrão (ex: auto-range, contínuo)
     uint16_t config_reg_value = 0; // Inicia em power-down 
 
-    // Se você quiser iniciar em um modo específico, por exemplo, Contínuo com Auto-Range:
+    // Se quiser iniciar em um modo específico, por exemplo, Contínuo com Auto-Range:
     // config_reg_value = (0xC << 10) | (0xB << 6) | (0x3 << 4); // Auto-range, 800ms, Continuous
 
     if (!opt4001_write_register(OPT4001_REG_CONFIG, config_reg_value)) {
@@ -335,12 +335,6 @@ bool opt4001_get_data(opt4001_data_t *data) {
     data->flag_h = (reg_val_0C >> 1) & 0x01; 
     data->flag_l = reg_val_0C & 0x01; 
 
-    // O datasheet (seção 8.6.1.13) indica que CONVERSION_READY_FLAG é limpa
-    // quando o registrador 0x0C é lido ou escrito com qualquer valor não-zero.
-    // A simples leitura acima já deve limpar, mas se quiser garantir a limpeza explícita
-    // de todas as flags após a leitura (seção 8.4.2), você pode adicionar:
-    // opt4001_write_register(OPT4001_REG_INTERRUPT_FLAGS, 0x0000); // Limpa todas as flags
-    // Isso pode ser uma decisão de design dependendo de como você quer gerenciar as flags.
 
     return true;
 }
