@@ -172,10 +172,6 @@ Estas funções são expostas para depuração e testes avançados.
   * **`bool opt4001_read_register(uint8_t reg_address, uint16_t *value)`**: Lê o valor de 16 bits de um registrador específico.
   * **`bool opt4001_write_register(uint8_t reg_address, uint16_t value)`**: Escreve um valor de 16 bits em um registrador específico.
 
-## Suite de Testes
-
-O projeto inclui um arquivo `test_opt4001.c` com uma suite de testes que cobre a inicialização, configuração de modos, leitura de dados, limiares e interrupções.
------
 
 
 -----
