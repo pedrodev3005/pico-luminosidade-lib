@@ -32,7 +32,7 @@ O OPT4001 é um sensor de luz para digital (luxímetro de chip único) com alta 
   * Inicialização da comunicação I²C com o sensor.
   * Modos de operação configuráveis: Power-down, One-shot (disparo único) e Contínuo.
   * Tempos de conversão selecionáveis.
-  * [cite\_start]Seleção automática de faixa de luz (Auto-Range).
+  * Seleção automática de faixa de luz (Auto-Range).
   * Leitura de dados de iluminância em Lux.
   * Extração de `EXPONENT`, `MANTISSA`, `ADC_CODES`, `COUNTER` e `CRC` dos dados brutos.
   * Detecção de sobrecarga do sensor (`overload_flag`).
