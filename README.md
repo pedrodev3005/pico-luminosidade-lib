@@ -19,7 +19,6 @@ Esta é uma biblioteca em C para o sensor de luz ambiente digital Texas Instrume
     * [Configuração de Limiares (Thresholds)](#configuração-de-limiares-thresholds)
     * [Uso de Interrupções](#uso-de-interrupções)
     * [Funções de Baixo Nível](#funções-de-baixo-nível)
-7.  [Suite de Testes](#suite-de-testes)
 
 -----
 
