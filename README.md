@@ -1,9 +1,3 @@
-Aqui está a versão atualizada do seu `README.md`, refletindo as mudanças que você fez no repositório, incluindo os novos arquivos de exemplo para os modos de interrupção e as correções na biblioteca.
-
-O `README.md` foi reescrito para explicar a nova estrutura do projeto, com os diferentes arquivos de teste e as funcionalidades específicas de cada um.
-
------
-
 # Biblioteca OPT4001 para Raspberry Pi Pico W
 
 Esta é uma biblioteca em C para o sensor de luz ambiente digital Texas Instruments OPT4001, desenvolvida para ser utilizada com a placa Raspberry Pi Pico W e seu SDK. A biblioteca permite configurar o sensor, ler dados de iluminância (Lux), e utilizar recursos avançados como detecção de limiares (thresholds) e interrupções.
