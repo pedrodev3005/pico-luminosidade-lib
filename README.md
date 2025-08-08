@@ -9,9 +9,9 @@ Esta é uma biblioteca em C para o sensor de luz ambiente digital Texas Instrume
 3.  [Estrutura do Projeto](#estrutura-do-projeto)
 4.  [Como Usar a Biblioteca](#como-usar-a-biblioteca)
       * [Inicialização](#inicialização)
-      * [Configuração Básica](#configuração)
+      * [Configuração Básica](#configuração-básica)
       * [Leitura de Dados](#leitura-de-dados)
-      * [Configuração de Limiares (Thresholds)](#configuração-de-limiares-thresholds)
+      * [Configuração de Limiares (Thresholds)](#configuração-de-limiares-(thresholds))
       * [Uso de Interrupções](#uso-de-interrupção)
       * [Funções de Baixo Nível](#funções-de-baixo-nível)
 
