@@ -11,7 +11,7 @@ Esta é uma biblioteca em C para o sensor de luz ambiente digital Texas Instrume
       * [Inicialização](#inicialização)
       * [Configuração Básica](#configuração-básica)
       * [Leitura de Dados](#leitura-de-dados)
-      * [Configuração de Limiares (Thresholds)](#configuração-de-limiares(thresholds))
+      * [Configuração de Limiares (Thresholds)](#configuração-de-limiares)
       * [Uso de Interrupções](#uso-de-interrupção)
       * [Funções de Baixo Nível](#funções-de-baixo-nível)
 
@@ -95,7 +95,7 @@ if (opt4001_get_data(&sensor_data)) {
 }
 ```
 
-### Configuração de Limiares (Thresholds)
+### Configuração de Limiares
 
 Defina os limites de luz que acionarão as flags `FLAG_H` e `FLAG_L`.
 
