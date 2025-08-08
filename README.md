@@ -1,3 +1,6 @@
+Aqui está a versão atualizada do seu `README.md`, refletindo as mudanças que você fez no repositório, incluindo os novos arquivos de exemplo para os modos de interrupção e as correções na biblioteca.
+
+O `README.md` foi reescrito para explicar a nova estrutura do projeto, com os diferentes arquivos de teste e as funcionalidades específicas de cada um.
 
 -----
 
@@ -7,24 +10,22 @@ Esta é uma biblioteca em C para o sensor de luz ambiente digital Texas Instrume
 
 ## Índice
 
-1.  [Visão Geral](#visão-geral)
+1.  [Visão Geral](#visao-geral)
 2.  [Funcionalidades](#funcionalidades)
-3.  [Hardware e Conexões](#hardware-e-conexões)
-4.  [Estrutura do Projeto](#estrutura-do-projeto)
-5.  [Configuração do Ambiente de Desenvolvimento](#configuração-do-ambiente-de-desenvolvimento)
-6.  [Como Usar a Biblioteca](#como-usar-a-biblioteca)
-    * [Inicialização](#inicialização)
-    * [Configuração Básica](#configuração-básica)
-    * [Leitura de Dados](#leitura-de-dados)
-    * [Configuração de Limiares (Thresholds)](#configuração-de-limiares-thresholds)
-    * [Uso de Interrupções](#uso-de-interrupções)
-    * [Funções de Baixo Nível](#funções-de-baixo-nível)
+3.  [Estrutura do Projeto](#estrutura-do-projeto)
+4.  [Como Usar a Biblioteca](#como-usar-a-biblioteca)
+      * [Inicialização](#inicialização)
+      * [Configuração Básica](#configuração)
+      * [Leitura de Dados](#leitura-de-dados)
+      * [Configuração de Limiares (Thresholds)](#configuração-de-limiares-thresholds)
+      * [Uso de Interrupções](#uso-de-interrupção)
+      * [Funções de Baixo Nível](#funções-de-baixo-nível)
 
 -----
 
 ## Visão Geral
 
-O OPT4001 é um sensor de luz para digital (luxímetro de chip único) com alta precisão e velocidade, que se comunica via interface I²C. Ele é otimizado para corresponder à resposta do olho humano à luz visível, com excelente rejeição de infravermelho (IV). Esta biblioteca abstrai a complexidade da comunicação I²C e da interpretação dos dados brutos do sensor, fornecendo uma API simples e fácil de usar.
+O OPT4001 é um sensor de luz para digital (luxímetro de chip único) com alta precisão e velocidade, que se comunica via interface I²C. Ele é otimizado para corresponder à resposta do olho humano, com excelente rejeição de infravermelho (IV). Esta biblioteca abstrai a complexidade da comunicação I²C e da interpretação dos dados brutos do sensor, fornecendo uma API simples e fácil de usar.
 
 ## Funcionalidades
 
@@ -40,30 +41,22 @@ O OPT4001 é um sensor de luz para digital (luxímetro de chip único) com alta 
   * Suporte a interrupções via pino `INT` (somente variante SOT-5X3) para operação baseada em eventos e economia de energia.
   * Acesso direto a funções de leitura e escrita de registradores para depuração avançada.
 
-## Hardware e Conexões
-
-Esta biblioteca é configurada para a variante **OPT4001 SOT-5X3** e as seguintes conexões padrão na Raspberry Pi Pico W:
-
-  * **Sensor I²C Address:** `0x45` (indicando que o pino `ADDR` do OPT4001 está conectado ao VDD ou SCL na PCB).
-  * **Pino SDA (Pico W):** `GPIO 4`
-  * **Pino SCL (Pico W):** `GPIO 5`
-  * **Pino INT (Pico W):** `GPIO 13` (Conectado ao pino `INT` do OPT4001).
-
-**Importante:** Certifique-se de que as linhas I²C (SDA e SCL) possuam **resistores de pull-up externos** (tipicamente 4.7kΩ ou 10kΩ) conectados à linha de alimentação VDD (3.3V). O pino `INT` do OPT4001 é *open-drain* e também requer um resistor de pull-up externo para funcionar corretamente.
-
 ## Estrutura do Projeto
 
-O projeto segue uma estrutura padrão do SDK da Raspberry Pi Pico:
+O projeto segue uma estrutura padrão do SDK da Raspberry Pi Pico. Para demonstrar o uso da biblioteca, foram criados diferentes arquivos de aplicação:
 
 ```
 .
-├── CMakeLists.txt              # Configuração de compilação do CMake
-├── opt4001.h                   # Arquivo de cabeçalho da biblioteca OPT4001
-├── opt4001.c                   # Implementação da biblioteca OPT4001
-├── luminosidade_3.c            # Exemplo de aplicação principal (para uso final)
-├── test_opt4001.c              # Suite de testes para a biblioteca
-└── README.md                   # Este arquivo
+├── CMakeLists.txt                  # Configuração de compilação do CMake
+├── opt4001.h                       # Arquivo de cabeçalho da biblioteca OPT4001
+├── opt4001.c                       # Implementação da biblioteca OPT4001
+├── luminosidade_3.c                # Exemplo de aplicação principal (leitura contínua)
+├── interrupcao_histeris_teste.c    # Exemplo de uso de interrupção no modo Hysteresis
+├── interrupcao_latched_teste.c     # Exemplo de uso de interrupção no modo Latched
+├── test_opt4001.c                  # Suite de testes para a biblioteca
+└── README.md                       # Este arquivo
 ```
+
 
 ## Como Usar a Biblioteca
 
@@ -75,7 +68,7 @@ A primeira função a ser chamada para inicializar o sensor.
 #include "opt4001.h"
 
 // ... em main()
-if (!opt4001_init(100 * 1000)) { // Inicializa I2C a 100 kHz
+if (!opt4001_init(I2C_PORT_USED, SDA_PIN_USED, SCL_PIN_USED, SENSOR_I2C_ADDRESS, SENSOR_VARIANT, 100 * 1000)) {
     printf("ERRO: Falha na inicializacao do OPT4001!\n");
     while(true); // Trava se falhar
 }
@@ -88,9 +81,9 @@ Defina o modo de operação, faixa de luz e tempo de conversão.
 
 ```c
 // ... após opt4001_init()
-opt4001_set_operating_mode(OPT4001_MODE_CONTINUOUS); // Modo contínuo
-opt4001_set_range(OPT4001_RANGE_AUTO);               // Auto-ajuste de faixa
-opt4001_set_conversion_time(OPT4001_CONV_TIME_400MS); // Tempo de conversão de 400ms
+opt4001_set_operating_mode(OPT4001_MODE_CONTINUOUS); // Modo contínuo 
+opt4001_set_range(OPT4001_RANGE_AUTO);               // Auto-ajuste de faixa 
+opt4001_set_conversion_time(OPT4001_CONV_TIME_400MS); // Tempo de conversão de 400ms 
 printf("Sensor configurado para medicões contínuas e auto-range.\n");
 ```
 
@@ -124,45 +117,10 @@ if (!opt4001_set_lux_thresholds(low_threshold_lux, high_threshold_lux)) {
 
 ### Uso de Interrupções
 
-Configure o pino `INT` do sensor e a interrupção GPIO na Pico W para acordar o microcontrolador em eventos de luz.
+A biblioteca suporta interrupções de hardware, oferecendo dois modos de operação. Verifique os arquivos de exemplo para a implementação completa:
 
-```c
-#include "hardware/gpio.h"
-#include "hardware/sync.h" // Para __wfi()
-
-// ... (definição de OPT4001_INT_GPIO_PIN e opt4001_interrupted, opt4001_int_gpio_callback)
-
-// ... em main()
-// Configurar o LATCH para Transparent Hysteresis (recomendado para interrupções dinâmicas)
-uint16_t config_reg_val;
-if (opt4001_read_register(OPT4001_REG_CONFIG, &config_reg_val)) {
-    config_reg_val &= ~(1 << 3); // Limpa o bit 3 (LATCH)
-    opt4001_write_register(OPT4001_REG_CONFIG, config_reg_val);
-}
-
-// Configura o pino INT do sensor (sensor-side)
-opt4001_config_interrupt_pin(OPT4001_INT_POLARITY_ACTIVE_LOW, OPT4001_FAULT_COUNT_2_FAULTS);
-
-// Configura o pino GPIO da Pico W para a interrupção
-gpio_set_dir(OPT4001_INT_GPIO_PIN, GPIO_IN);
-gpio_pull_up(OPT4001_INT_GPIO_PIN); // Importante para open-drain
-gpio_set_irq_enabled_with_callback(OPT4001_INT_GPIO_PIN, GPIO_IRQ_EDGE_FALL, true, &opt4001_int_gpio_callback);
-
-// Loop principal com economia de energia
-while (true) {
-    __wfi(); // Espera por uma interrupção
-
-    if (opt4001_interrupted) {
-        opt4001_interrupted = false; // Limpa a flag
-
-        opt4001_data_t event_data;
-        if (opt4001_get_data(&event_data)) {
-            printf("Interrupcao! Lux: %.2f, FlagH: %d, FlagL: %d\n", event_data.lux, event_data.flag_h, event_data.flag_l);
-            // Sua lógica de resposta à interrupção aqui
-        }
-    }
-}
-```
+  * **`interrupcao_histeris_teste.c`**: Demonstra o modo de **histerese transparente** (`LATCH = 0`). Neste modo, as flags de alarme são atualizadas a cada conversão, e o pino de interrupção (`INT`) só muda de estado quando a medição cruza um dos limiares.
+  * **`interrupcao_latched_teste.c`**: Demonstra o modo **latched** (`LATCH = 1`). Neste modo, uma vez que uma flag de alarme é ativada, ela permanece travada (`latched`) e o pino de interrupção fica no estado ativo, até que o registrador de flags seja limpo manualmente.
 
 ### Funções de Baixo Nível
 
@@ -170,7 +128,3 @@ Estas funções são expostas para depuração e testes avançados.
 
   * **`bool opt4001_read_register(uint8_t reg_address, uint16_t *value)`**: Lê o valor de 16 bits de um registrador específico.
   * **`bool opt4001_write_register(uint8_t reg_address, uint16_t value)`**: Escreve um valor de 16 bits em um registrador específico.
-
-
-
------
